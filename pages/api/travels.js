@@ -28,7 +28,7 @@ export default async (req, res) => {
 
       const response = await axios.get(url);
 
-      return res.status(200).json({ data: response.data });
+      return res.status(200).json({ travels: response.data });
     } catch (error) {
       console.error(error);
       return res.status(503);

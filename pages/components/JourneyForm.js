@@ -6,10 +6,10 @@ const initForm = {
   origin: 'PARIS (intramuros)',
   destination: 'VALENCE TGV RHONE-ALPES SUD',
   periodStart: moment().format('HH:mm'),
-  periodEnd: moment().add(1, 'hours').format('HH:mm'),
+  periodEnd: moment('23:59', 'HH:mm').format('HH:mm'),
 };
 
-export default function ({ onSubmit, stationsArray = [] }) {
+const JourneyForm = ({ onSubmit, stationsArray = [] }) => {
   const formik = useFormik({
     initialValues: initForm,
     onSubmit: onSubmit,
@@ -68,4 +68,6 @@ export default function ({ onSubmit, stationsArray = [] }) {
       </form>
     </div>
   );
-}
+};
+
+export default JourneyForm;
