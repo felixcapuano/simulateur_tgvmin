@@ -1,30 +1,30 @@
 import { TreeView, TreeItem } from '@mui/lab';
+import { useEffect, useState } from 'react';
 // import { ExpandMoreIcon, ChevronRightIcon } from '@mui/icons-material';
 
-const JourneysTreeItems = ({ label, data, nodeId = '0' }) => {
-  if (typeof data !== 'object') return null;
-
-  // const [keys, setKeys] = useState(Object.keys(data));
-  const labels = Object.keys(data);
-  const subTreeItem = labels.map((label, index) => {
-    return (
-      <JourneysTreeItems
-        label={label}
-        data={data[label]}
-        nodeId={index.toString()}
-        key={index}
-      />
-    );
-  });
-
-  return (
-    <TreeItem nodeId={nodeId} label={label}>
-      {subTreeItem}
-    </TreeItem>
-  );
+const DateTreeItem = ({ journeys }) => {
+  return <TreeItem></TreeItem>;
 };
 
-const JourneysTree = ({ journeys = {} }) => {
+const JourneysTree = ({ journeys }) => {
+  if (journeys === {}) return null;
+
+  const renderTree = (nodes, label) => {
+    if (typeof nodes !== 'object') return null;
+
+    const id = nodes.id;
+
+    const child = Object.keys(nodes).map((label) => {
+      renderTree(nodes[label], label);
+    });
+
+    return (
+      <TreeItem nodeId={id} label={label} key={id}>
+        {child}
+      </TreeItem>
+    );
+  };
+
   return (
     <TreeView
       aria-label='file system navigator'
@@ -32,7 +32,7 @@ const JourneysTree = ({ journeys = {} }) => {
       // defaultExpandIcon={<ChevronRightIcon />}
       sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
     >
-      <JourneysTreeItems data={journeys} label='toto' nodeId='0' />
+      {/* {renderTree(journeys, 'root')} */}
     </TreeView>
   );
 };
