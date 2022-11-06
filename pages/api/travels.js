@@ -13,18 +13,14 @@ export default async (req, res) => {
       const origin = req.query.origin;
       const destination = req.query.destination;
 
-      const datetimeStart = moment(
-        req.query.date + ' ' + req.query.periodStart,
-        'YYYY-MM-DD HH:mm',
-        true
-      ).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
-      const datetimeEnd = moment(
-        req.query.date + ' ' + req.query.periodEnd,
-        'YYYY-MM-DD HH:mm',
-        true
-      ).format(moment.HTML5_FMT.DATETIME_LOCAL_SECONDS);
+      const startDateTimeFmt = moment(req.query.startDateTime).format(
+        moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
+      );
+      const endDateTimeFmt = moment(req.query.endDateTime).format(
+        moment.HTML5_FMT.DATETIME_LOCAL_SECONDS
+      );
 
-      const url = `${baseUrl}/${origin}/${destination}/${datetimeStart}/${datetimeEnd}`;
+      const url = `${baseUrl}/${origin}/${destination}/${startDateTimeFmt}/${endDateTimeFmt}`;
 
       const response = await axios.get(url);
 
